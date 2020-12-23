@@ -1,5 +1,6 @@
 ﻿using CloudEventManager.Extensions;
 using CloudEventManager.Manager.Interface;
+using CloudEventManager.Manager.Interface.Messaging;
 using CloudEventManager.Manager.Logging;
 using CloudEventManager.Models;
 using CloudEventManager.Models.Configurations;
@@ -9,33 +10,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CloudEventManager.Manager.Implementation
 {
-	public abstract class CloudEventNotificationServiceBase<T> : INotificationService<T>
-		where T : class
+	public abstract class CloudEventNotificationServiceBase : INotificationService
 	{
+		private readonly CloudEventManagerConfiguration _cloudEventManagerConfiguration;
 		protected CloudEventNotificationServiceBase(IMessagePublisherFactory messagePublisherFactory,
 			IHttpClient httpClient,
-			IContractResolver contractResolver)
+			IContractResolver contractResolver,
+			CloudEventManagerConfiguration cloudEventManagerConfiguration)
 		{
+			_cloudEventManagerConfiguration = cloudEventManagerConfiguration.ValidateArgNotNull(nameof(cloudEventManagerConfiguration));
 			Publisher = messagePublisherFactory.ValidateArgNotNull(nameof(messagePublisherFactory))
-				.GetMessagePublisher(ConnectionStringConfigurationName,
-						QueueName.ValidateArgNotNull(nameof(QueueName)));
+												.GetMessagePublisher(ConnectionStringConfigurationName,
+														QueueName.ValidateArgNotNull(nameof(QueueName)));
 			HttpClient = httpClient.ValidateArgNotNull(nameof(httpClient));
 			ContractResolver = contractResolver.ValidateArgNotNull(nameof(contractResolver));
+			
 		}
 
 		protected virtual string ClientId => "UnknownUser";
-		protected abstract string ConnectionStringConfigurationName { get; }
+		protected string ConnectionStringConfigurationName => _cloudEventManagerConfiguration.ConnectionStringConfigurationName;
 		protected IContractResolver ContractResolver { get; }
 		protected IHttpClient HttpClient { get; }
 		protected IMessagePublisher Publisher { get; }
-		protected abstract string QueueName { get; }
-		protected abstract RetrySetting RetryConfigurationSetting { get; }
-		protected abstract IEnumerable<Type> RetryExceptionTypes { get; }
+		protected string QueueName => _cloudEventManagerConfiguration.QueueName;
+		protected RetrySetting RetryConfigurationSetting => _cloudEventManagerConfiguration.RetryConfigurationSetting;
+		protected IEnumerable<Type> RetryExceptionTypes => _cloudEventManagerConfiguration.RetryExceptionTypes;
 		protected ITelemetryClient TelemetryClient { get; }
 
 		public async Task SendNotificationAsync(Message message, MessageReceiver messageReceiver)
@@ -74,7 +77,7 @@ namespace CloudEventManager.Manager.Implementation
 			}
 			catch (Exception ex)
 			{
-				TelemetryClient.TrackMessageException<CloudEvent>(message, $"FailedCallback-{typeof(T).Name}", ex);
+				TelemetryClient.TrackMessageException<CloudEvent>(message, $"FailedCallback", ex);
 
 				if (RetryExceptionTypes.Any(x => x == ex.GetType() || ex.GetType().IsSubclassOf(x)))
 				{

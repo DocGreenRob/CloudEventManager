@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CloudEventManager.Manager.Interface
+namespace CloudEventManager.Manager.Interface.Messaging
 {
 	public interface IMessagePublisher : IDisposable
 	{

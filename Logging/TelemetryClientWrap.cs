@@ -28,7 +28,7 @@ namespace CloudEventManager.Manager.Logging
 			Client.Context.Operation.Id = Client.Context.Operation.Id ?? Guid.NewGuid().ToString();
 		}
 
-		public string ContextOperationId => Client.Context.Operation.Id;
+		public string ContextOperationId { get { return Client.Context.Operation.Id; } set => throw new NotImplementedException(); }
 
 		public void Dispose()
 		{

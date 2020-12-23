@@ -99,5 +99,56 @@ namespace CloudEventManager.Extensions
 				}
 			}
 		}
+
+		public static string BytesToAsciiString(this byte[] bytes)
+		{
+			return System.Text.Encoding.ASCII.GetString(bytes);
+		}
+
+		public static void GetRandomBytes(this byte[] bytes)
+		{
+			string validChars = "123456789abcdef";
+			int validCharsLength = validChars.Length - 1;
+
+			for (int i = 0; i < bytes.Length; i++)
+			{
+				bytes[i] = Convert.ToByte(validChars[rnd.Next(validCharsLength)]);
+			}
+			return;
+		}
+
+		public static bool SetBytesFromValue(this byte[] bytes, string value)
+		{
+			var isValid = true;
+			int byteIndex = bytes.Length - 1;
+			int partLength = value.Length - 1;
+
+			for (int i = partLength; i >= 0; i--)
+			{
+				if (IsValidHexChar(value[i]))
+				{
+					bytes[byteIndex] = Convert.ToByte(value[i]);
+					byteIndex--;
+					if (byteIndex < 0)
+						break;
+				}
+				else
+				{
+					isValid = false;
+					partLength--;
+				}
+			}
+			// make sure its filled could be optimized to get all bytes at once
+			if (partLength + 1 < bytes.Length)
+			{
+				byte[] randomByte = new byte[1];
+				for (int j = bytes.Length - partLength; j >= 0; j--)
+				{
+					rnd.NextBytes(randomByte);
+					bytes[j] = randomByte[0];
+				}
+			}
+			return isValid;
+		}
 	}
 }

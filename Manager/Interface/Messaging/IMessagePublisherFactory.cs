@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CloudEventManager.Manager.Interface
+namespace CloudEventManager.Manager.Interface.Messaging
 {
 	public interface IMessagePublisherFactory
 	{

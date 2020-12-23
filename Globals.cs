@@ -20,6 +20,8 @@ namespace CloudEventManager
 			public const string ERRInvalidMessageType = nameof(ERRInvalidMessageType);
 			public const string ERRInvalidCallbackUri = nameof(ERRInvalidCallbackUri);
 			public const string ERRInvalidStatusCodeFromClient = nameof(ERRInvalidStatusCodeFromClient);
+			public const string ERRMissingConfiguration = nameof(ERRMissingConfiguration);
+			public const string MessagePublisherConnectionError = nameof(MessagePublisherConnectionError);
 		}
 
 		public static class Logging
@@ -34,6 +36,19 @@ namespace CloudEventManager
 			public static class Keys
 			{
 				public const string QueueMessage = "queueMessage";
+				public const string Id = "id";
+				public const string ClientId = "clientId";
+				public const string Exception = "exception";
+				public const string Payload = "payload";
+				public const string Stacktrace = "stacktrace";
+			}
+
+			public class TraceConstants
+			{
+				public const string TraceParent = "traceparent";
+				public const string TraceState = "tracestate";
+				public const string ConfigTraceStateName = "traceStateName";
+				public const string ApplicationInsightsId = "CloudEventManager-ApplicationInsights-Id";
 			}
 		}
 	}

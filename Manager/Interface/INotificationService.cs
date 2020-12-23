@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace CloudEventManager.Manager.Interface
 {
-	public interface INotificationService<T> where T : class
+	public interface INotificationService
 	{
 		Task SendNotificationAsync(Message message, MessageReceiver messageReceiver);
 	}

@@ -1,4 +1,4 @@
-﻿using CloudEventManager.Manager.Interface;
+﻿using CloudEventManager.Manager.Interface.Messaging;
 
 namespace CloudEventManager.Manager.Implementation
 {
