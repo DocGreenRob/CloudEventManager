@@ -4,6 +4,6 @@ namespace CloudEventManager.Manager.Interface
 {
 	public interface ICloudEventManager
 	{
-		Task DoWork();
+		Task ExecuteAsync<T>(T obj);
 	}
 }

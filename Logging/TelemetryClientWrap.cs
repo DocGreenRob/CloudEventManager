@@ -25,7 +25,7 @@ namespace CloudEventManager.Manager.Logging
 			Client = new TelemetryClient() { InstrumentationKey = instrumentationKey };
 
 			//Needed for the telemetry
-			Client.Context.Operation.Id = Client.Context.Operation.Id ?? Guid.NewGuid().ToString();
+			//Client.Context.Operation.Id = Client.Context.Operation.Id ?? Guid.NewGuid().ToString();
 		}
 
 		public string ContextOperationId { get { return Client.Context.Operation.Id; } set => throw new NotImplementedException(); }

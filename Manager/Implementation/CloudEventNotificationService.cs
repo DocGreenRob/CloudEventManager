@@ -14,7 +14,7 @@ namespace CloudEventManager.Manager.Implementation
 	{
 		public CloudEventNotificationService(IMessagePublisherFactory messagePublisherFactory,
 			IHttpClient httpClient,
-			IContractResolver contractResolver, CloudEventManagerConfiguration cloudEventManagerConfiguration) : base(messagePublisherFactory, httpClient, contractResolver, cloudEventManagerConfiguration)
+			IContractResolver contractResolver, ICloudEventManagerConfiguration2 cloudEventManagerConfiguration) : base(messagePublisherFactory, httpClient, contractResolver, cloudEventManagerConfiguration)
 		{
 		}
 

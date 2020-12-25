@@ -16,11 +16,11 @@ namespace CloudEventManager.Manager.Implementation
 {
 	public abstract class CloudEventNotificationServiceBase : INotificationService
 	{
-		private readonly CloudEventManagerConfiguration _cloudEventManagerConfiguration;
+		private readonly ICloudEventManagerConfiguration2 _cloudEventManagerConfiguration;
 		protected CloudEventNotificationServiceBase(IMessagePublisherFactory messagePublisherFactory,
 			IHttpClient httpClient,
 			IContractResolver contractResolver,
-			CloudEventManagerConfiguration cloudEventManagerConfiguration)
+			ICloudEventManagerConfiguration2 cloudEventManagerConfiguration)
 		{
 			_cloudEventManagerConfiguration = cloudEventManagerConfiguration.ValidateArgNotNull(nameof(cloudEventManagerConfiguration));
 			Publisher = messagePublisherFactory.ValidateArgNotNull(nameof(messagePublisherFactory))
