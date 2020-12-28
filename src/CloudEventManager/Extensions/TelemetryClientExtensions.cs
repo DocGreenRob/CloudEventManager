@@ -34,8 +34,7 @@ namespace CloudEventManager.Extensions
 			return new Dictionary<string, string>
 			{
 				[Keys.QueueMessage] = instance.GetBody(),
-				[ServiceGlobals.RetryValues.RetryCounterKeyName] = instance.GetCurrentRetryCounter().ToString(),
-				[nameof(Message.MessageId)] = instance.MessageId
+				[ServiceGlobals.RetryValues.RetryCounterKeyName] = instance.GetCurrentRetryCounter().ToString()
 			};
 		}
 

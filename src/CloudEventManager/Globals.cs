@@ -43,6 +43,11 @@ namespace CloudEventManager
 				public const string Stacktrace = "stacktrace";
 			}
 
+			public static class MediaTypes
+			{
+				public const string Json = "application/json";
+			}
+
 			public class TraceConstants
 			{
 				public const string TraceParent = "traceparent";

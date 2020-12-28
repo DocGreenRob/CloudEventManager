@@ -35,8 +35,8 @@ namespace SampleConsumerApiService
 		{
 			services.AddControllers();
 			var cloudEventManagerConfiguration = new CloudEventManagerConfiguration();
-			cloudEventManagerConfiguration.ConnectionStringHostName = "localhost";
-			cloudEventManagerConfiguration.TopicName = "service-name.feature";
+			cloudEventManagerConfiguration.ConnectionStringHostName = "localhost2";
+			cloudEventManagerConfiguration.ExchangeName = "project-name.exchange";
 			cloudEventManagerConfiguration.RetryConfigurationSetting = new RetrySetting
 			{
 				MaxAttempts = 10,
@@ -56,11 +56,7 @@ namespace SampleConsumerApiService
 
 			services.AddScoped<ITelemetryClient, TelemetryClientWrap>();
 			services.AddScoped<IApplicationContext, ApplicationContext>();
-			services.AddScoped<IHttpClient, HttpClient>();
 			services.AddScoped<IContractResolver, ContractResolver>();
-			services.AddScoped<IQueueClientFactory, QueueClientFactory>();
-			services.AddScoped<IMessageSenderFactory, MessageSenderFactory>();
-			services.AddScoped<IMessagePublisherFactory, MessagePublisherFactory>();
 			services.AddScoped<ICloudEventManagerConfiguration>(x => cloudEventManagerConfiguration);
 			services.AddScoped<ICloudEventManager, CloudEventManager.Manager.Implementation.CloudEventManager>();
 		}

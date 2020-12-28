@@ -38,7 +38,7 @@ namespace SampleConsumerApiService.Controllers
 			})
 			.ToArray();
 
-			await _cloudEventManager.ExecuteAsync<WeatherForecast>(weatherForecast.First()).ConfigureAwait(false);
+			await _cloudEventManager.ExecuteAsync<WeatherForecast>(weatherForecast.First(), "weather.update").ConfigureAwait(false);
 
 			return weatherForecast;
 		}
