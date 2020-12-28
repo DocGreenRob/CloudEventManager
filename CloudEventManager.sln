@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudEventManager", "src\CloudEventManager\CloudEventManager.csproj", "{1BE44A31-3D21-4D93-B42E-5C11079F27FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudEventManager", "src\CloudEventManager\CloudEventManager.csproj", "{1BE44A31-3D21-4D93-B42E-5C11079F27FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleConsumerApiService", "src\SampleConsumerApiService\SampleConsumerApiService.csproj", "{4084C2B3-5F34-45BE-A6B6-080487D8604C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleConsumerApiService", "src\SampleConsumerApiService\SampleConsumerApiService.csproj", "{4084C2B3-5F34-45BE-A6B6-080487D8604C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMqExchangeWatcher", "RabbitMqExchangeWatcher\RabbitMqExchangeWatcher.csproj", "{03837CB4-47A6-455A-9E07-C137FD369914}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{4084C2B3-5F34-45BE-A6B6-080487D8604C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4084C2B3-5F34-45BE-A6B6-080487D8604C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4084C2B3-5F34-45BE-A6B6-080487D8604C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03837CB4-47A6-455A-9E07-C137FD369914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03837CB4-47A6-455A-9E07-C137FD369914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03837CB4-47A6-455A-9E07-C137FD369914}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03837CB4-47A6-455A-9E07-C137FD369914}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
