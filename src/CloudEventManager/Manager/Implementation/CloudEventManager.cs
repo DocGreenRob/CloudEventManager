@@ -75,7 +75,8 @@ namespace CloudEventManager.Manager.Implementation
 				if(_currentSendAttempts < _cloudEventManagerConfiguration.RetryConfigurationSetting.MaxAttempts)
 				{
 					_currentSendAttempts += 1;
-					await ExecuteAsync<T>(data, routingKey, correlationId).ConfigureAwait(false);
+					//await ExecuteAsync<T>(data, routingKey, correlationId).ConfigureAwait(false);
+					await _rabbitMQFactory.ResendMessageAsync(message, routingKey).ConfigureAwait(false);
 				}
 			}
 			catch (Exception ex)

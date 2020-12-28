@@ -40,8 +40,8 @@ namespace CloudEventManager.Manager.Implementation.Messaging.Factories
 		}
 
 		public Guid Id => throw new NotImplementedException();
-		public bool IsClosedOrClosing => throw new NotImplementedException();
-		public int MaxRetryCount => throw new NotImplementedException();
+		public bool IsClosedOrClosing => _connectionFactory == null;
+		public int MaxRetryCount => _cloudEventManagerConfiguration.RetryConfigurationSetting.MaxAttempts.Value;
 		public string Path => throw new NotImplementedException();
 		public Task CancelScheduledMessageAsync(long sequenceNumber, string routingKey)
 		{
@@ -58,19 +58,20 @@ namespace CloudEventManager.Manager.Implementation.Messaging.Factories
 			throw new NotImplementedException();
 		}
 
-		public Task ResendMessageAsync(Message message)
+		public async Task ResendMessageAsync(Message message, string routingKey)
 		{
-			throw new NotImplementedException();
+			await SendAsync(message, routingKey).ConfigureAwait(false);
 		}
 
-		public Task ResendMessageAsync(Message message, TimeSpan maxWaitTimeSpan)
+		public async Task ResendMessageAsync(Message message, TimeSpan maxWaitTimeSpan, string routingKey)
 		{
-			throw new NotImplementedException();
+			await SendAsync(message, routingKey).ConfigureAwait(false);
 		}
 
-		public Task<long> ScheduleMessageAsync(Message message, DateTimeOffset scheduleEnqueueTimeUtc, string routingKey)
+		public async Task<long> ScheduleMessageAsync(Message message, DateTimeOffset scheduleEnqueueTimeUtc, string routingKey)
 		{
-			throw new NotImplementedException();
+			await SendAsync(message, routingKey).ConfigureAwait(false);
+			return 0;
 		}
 
 		public Task SendAsync(Message message, string routingKey)

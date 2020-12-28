@@ -35,7 +35,7 @@ namespace SampleConsumerApiService
 		{
 			services.AddControllers();
 			var cloudEventManagerConfiguration = new CloudEventManagerConfiguration();
-			cloudEventManagerConfiguration.ConnectionStringHostName = "localhost2";
+			cloudEventManagerConfiguration.ConnectionStringHostName = "localhost";
 			cloudEventManagerConfiguration.ExchangeName = "project-name.exchange";
 			cloudEventManagerConfiguration.RetryConfigurationSetting = new RetrySetting
 			{

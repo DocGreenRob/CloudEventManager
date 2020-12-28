@@ -12,9 +12,10 @@ namespace CloudEventManager.Manager.Interface.Messaging
 		bool IsClosedOrClosing { get; }
 		int MaxRetryCount { get; }
 		Task CloseAsync();
-		Task ResendMessageAsync(Message message);
+		Task ResendMessageAsync(Message message, string routingKey);
 		Task ResendMessageAsync(Message message,
-			TimeSpan maxWaitTimeSpan);
+			TimeSpan maxWaitTimeSpan,
+			string routingKey);
 		Task SendAsync<TEntity>(object item,
 			string id,
 			string telemetryDependencyName,
