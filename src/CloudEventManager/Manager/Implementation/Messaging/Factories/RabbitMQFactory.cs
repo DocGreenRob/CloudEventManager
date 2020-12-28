@@ -18,7 +18,7 @@ namespace CloudEventManager.Manager.Implementation.Messaging.Factories
 		private readonly IConfiguration _configuration;
 		private readonly ITelemetryClient _telemetryClient;
 		private readonly IApplicationContext _applicationContext;
-		private readonly IMessageSenderFactory _messageSenderFactory;
+		//private readonly IMessageSenderFactory _messageSenderFactory;
 		private readonly IContractResolver _contractResolver;
 
 		public RabbitMQFactory(IConfiguration configuration,
@@ -30,7 +30,7 @@ namespace CloudEventManager.Manager.Implementation.Messaging.Factories
 			_configuration = configuration.ValidateArgNotNull(nameof(configuration));
 			_telemetryClient = telemetryClient.ValidateArgNotNull(nameof(telemetryClient));
 			_applicationContext = applicationContext.ValidateArgNotNull(nameof(applicationContext));
-			_messageSenderFactory = messageSenderFactory.ValidateArgNotNull(nameof(messageSenderFactory));
+			//_messageSenderFactory = messageSenderFactory.ValidateArgNotNull(nameof(messageSenderFactory));
 			_contractResolver = contractResolver.ValidateArgNotNull(nameof(contractResolver));
 		}
 
@@ -42,7 +42,12 @@ namespace CloudEventManager.Manager.Implementation.Messaging.Factories
 			// 2
 			//AddMessageToWorkTaskQueue("task-1");
 			var messageSenderFactory = new MessageSenderFactory(_configuration);
-			return new MessagePublisher(_configuration, _telemetryClient, serviceBusConnectionStringName, _applicationContext, messageSenderFactory, _contractResolver);
+			return new MessagePublisher(_configuration,
+				_telemetryClient,
+				serviceBusConnectionStringName,
+				_applicationContext,
+				//messageSenderFactory,
+				_contractResolver);
 		}
 
 		public IQueueClient GetQueueClient(string serviceBusConnectionStringName, string entityPath)

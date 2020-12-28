@@ -23,14 +23,14 @@ namespace CloudEventManager.Manager.Implementation.Messaging
 		private static JsonSerializerSettings _jsonSerializerSettings;
 		private readonly IClock _clock;
 		private readonly IConfiguration _configuration;
-		private readonly IMessageSenderFactory _messageSenderFactory;
+		//private readonly IMessageSenderFactory _messageSenderFactory;
 		private readonly IRandomNumberGenerator _randomNumberGenerator;
 
 		public MessagePublisher(IConfiguration configuration,
 			 ITelemetryClient telemetryClient,
 			 string serviceBusConnectionStringName,
 			 IApplicationContext applicationContext,
-			 IMessageSenderFactory messageSenderFactory,
+			 //IMessageSenderFactory messageSenderFactory,
 			 IContractResolver contractResolver = null)
 		{
 			_configuration = configuration.ValidateArgNotNull(nameof(configuration));
@@ -44,7 +44,7 @@ namespace CloudEventManager.Manager.Implementation.Messaging
 			TelemetryClient = telemetryClient.ValidateArgNotNull(nameof(telemetryClient));
 			_randomNumberGenerator = new RandomNumberGenerator();
 			_clock = new Clock();
-			_messageSenderFactory = messageSenderFactory;
+			//_messageSenderFactory = messageSenderFactory;
 			MaxRetryCount = GetMaxRetryCount(configuration);
 
 			_jsonSerializerSettings = _jsonSerializerSettings ?? new JsonSerializerSettings
@@ -80,7 +80,10 @@ namespace CloudEventManager.Manager.Implementation.Messaging
 			return InternalResendMessageAsync(message);
 		}
 
-		public async Task SendAsync<TEntity>(object item, string id, string telemetryDependencyName, params KeyValuePair<string, string>[] userProperties)
+		public async Task SendAsync<TEntity>(object item,
+			string id,
+			string telemetryDependencyName,
+			params KeyValuePair<string, string>[] userProperties)
 			where TEntity : class, new()
 		{
 			item.ValidateArgNotNull(nameof(item));
@@ -138,7 +141,7 @@ namespace CloudEventManager.Manager.Implementation.Messaging
 
 		internal IMessagePublisher Initialize(string entityName)
 		{
-			InternalMessageSender = _messageSenderFactory.GetMessageSender(ServicebusConnectionStringName, entityName);
+			//InternalMessageSender = _messageSenderFactory.GetMessageSender(ServicebusConnectionStringName, entityName);
 			return this;
 		}
 

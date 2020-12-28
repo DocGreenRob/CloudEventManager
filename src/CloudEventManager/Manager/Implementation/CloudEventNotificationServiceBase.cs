@@ -16,11 +16,11 @@ namespace CloudEventManager.Manager.Implementation
 {
 	public abstract class CloudEventNotificationServiceBase : INotificationService
 	{
-		private readonly ICloudEventManagerConfiguration2 _cloudEventManagerConfiguration;
+		private readonly ICloudEventManagerConfiguration _cloudEventManagerConfiguration;
 		protected CloudEventNotificationServiceBase(IMessagePublisherFactory messagePublisherFactory,
 			IHttpClient httpClient,
 			IContractResolver contractResolver,
-			ICloudEventManagerConfiguration2 cloudEventManagerConfiguration)
+			ICloudEventManagerConfiguration cloudEventManagerConfiguration)
 		{
 			_cloudEventManagerConfiguration = cloudEventManagerConfiguration.ValidateArgNotNull(nameof(cloudEventManagerConfiguration));
 			Publisher = messagePublisherFactory.ValidateArgNotNull(nameof(messagePublisherFactory))
@@ -32,11 +32,11 @@ namespace CloudEventManager.Manager.Implementation
 		}
 
 		protected virtual string ClientId => "UnknownUser";
-		protected string ConnectionStringConfigurationName => _cloudEventManagerConfiguration.ConnectionStringConfigurationName;
+		protected string ConnectionStringConfigurationName => _cloudEventManagerConfiguration.ConnectionStringHostName;
 		protected IContractResolver ContractResolver { get; }
 		protected IHttpClient HttpClient { get; }
 		protected IMessagePublisher Publisher { get; }
-		protected string QueueName => _cloudEventManagerConfiguration.QueueName;
+		protected string QueueName => _cloudEventManagerConfiguration.TopicName;
 		protected RetrySetting RetryConfigurationSetting => _cloudEventManagerConfiguration.RetryConfigurationSetting;
 		protected IEnumerable<Type> RetryExceptionTypes => _cloudEventManagerConfiguration.RetryExceptionTypes;
 		protected ITelemetryClient TelemetryClient { get; }

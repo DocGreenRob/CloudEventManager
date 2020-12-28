@@ -29,16 +29,18 @@ namespace SampleConsumerApiService.Controllers
 		[HttpGet]
 		public async Task<IEnumerable<WeatherForecast>> Get()
 		{
-			var myClass = new MyClass { MyProperty = 123 };
-			await _cloudEventManager.ExecuteAsync<MyClass>(myClass).ConfigureAwait(false);
 			var rng = new Random();
-			return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+			var weatherForecast = Enumerable.Range(1, 5).Select(index => new WeatherForecast
 			{
 				Date = DateTime.Now.AddDays(index),
 				TemperatureC = rng.Next(-20, 55),
 				Summary = Summaries[rng.Next(Summaries.Length)]
 			})
 			.ToArray();
+
+			await _cloudEventManager.ExecuteAsync<WeatherForecast>(weatherForecast.First()).ConfigureAwait(false);
+
+			return weatherForecast;
 		}
 	}
 
